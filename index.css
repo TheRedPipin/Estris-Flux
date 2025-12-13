@@ -13,16 +13,18 @@ body {
     font-family: 'Poppins', 'Segoe UI', sans-serif;
     overflow: hidden;
     position: relative;
+    -webkit-overflow-scrolling: touch;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
     body {
         width: 100vw;
+        padding: 0;
     }
 }
 
 
-#APIKeyInput.keyInputFilled, #APIKeyInput:not(:hover) {
+#APIKeyInput.keyInputFilled, #APIKeyInput:not(:hover):not(:focus) {
     display: inherit;
     color: transparent;
     margin-top: 20px;
@@ -49,15 +51,38 @@ body {
     text-align: center;
 }
 
+@media (max-width: 768px) {
+    #APIKeyInput:hover, #APIKeyInput:focus, #APIKeyInput.keyInputEmpty {
+        width: 90vw;
+        max-width: 300px;
+    }
+}
+
 #mainTitle {
     font-size: 48px;
     font-weight: bold;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    #mainTitle {
+        font-size: 32px;
+        margin-top: 10px;
+    }
 }
 
 #subtitle {
     font-size: 18px;
     margin-bottom: 20px;
     color: #888;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    #subtitle {
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
 }
 
 #chatContainer {
@@ -69,14 +94,34 @@ body {
     border: 1px solid #333;
     border-radius: 5px;
     margin-bottom: 80px;
+    -webkit-overflow-scrolling: touch;
+}
+
+@media (max-width: 768px) {
+    #chatContainer {
+        padding: 5px;
+        margin-bottom: 90px;
+        border-radius: 0;
+        border-left: none;
+        border-right: none;
+    }
 }
 
 #userMessage, #botMessage {
-    padding: 10px;
+    padding: 12px 15px;
     margin: 10px 0;
-    border-radius: 5px;
+    border-radius: 15px;
     max-width: 80%;
     word-wrap: break-word;
+    line-height: 1.4;
+}
+
+@media (max-width: 768px) {
+    #userMessage, #botMessage {
+        max-width: 85%;
+        padding: 10px 12px;
+        font-size: 15px;
+    }
 }
 
 #userMessage {
@@ -102,28 +147,62 @@ body {
     padding: 10px;
     box-sizing: border-box;
     background-color: #121212;
+    gap: 10px;
+}
+
+@media (max-width: 768px) {
+    #inputContainer {
+        padding: 8px;
+        gap: 8px;
+    }
 }
 
 #userInput {
     flex: 1;
-    padding: 10px;
+    padding: 12px;
     font-size: 16px;
     border: 1px solid #333;
-    border-radius: 5px;
+    border-radius: 20px;
     resize: none;
     height: 60px;
     box-sizing: border-box;
-    margin-right: 10px;
+    font-family: inherit;
+}
+
+@media (max-width: 768px) {
+    #userInput {
+        font-size: 16px;
+        padding: 10px 15px;
+        height: 50px;
+        border-radius: 25px;
+    }
 }
 
 #sendButton {
     padding: 10px 20px;
     font-size: 16px;
     border: none;
-    border-radius: 5px;
+    border-radius: 20px;
     background-color: #333;
     color: white;
     cursor: pointer;
+    transition: background-color 0.2s ease;
+    min-width: 60px;
+    white-space: nowrap;
+}
+
+#sendButton:active {
+    background-color: #555;
+}
+
+@media (max-width: 768px) {
+    #sendButton {
+        padding: 12px 20px;
+        font-size: 15px;
+        border-radius: 25px;
+        min-width: 70px;
+        touch-action: manipulation;
+    }
 }
 
 #alertBox {
@@ -138,9 +217,20 @@ body {
     opacity: 1;
     z-index: 1000;
     transition: all 0.3s ease;
+    max-width: 90%;
+    text-align: center;
 }
 
 #alertBox.hidden {
     opacity: 0;
     pointer-events: none;
+}
+
+@media (max-width: 768px) {
+    #alertBox {
+        top: 60px;
+        padding: 12px 16px;
+        font-size: 14px;
+        border-radius: 8px;
+    }
 }

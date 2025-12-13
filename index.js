@@ -1,6 +1,7 @@
 window.onload = () => {
     const apiKeyInput = document.getElementById("APIKeyInput");
     const sendButton = document.getElementById("sendButton");
+    const userInput = document.getElementById("userInput");
     const storedApiKey = sessionStorage.getItem("apiKey");
     if (storedApiKey) {
         apiKeyInput.value = storedApiKey;
@@ -8,6 +9,14 @@ window.onload = () => {
         apiKeyInput.classList.add("keyInputFilled");
     }
     sendButton.addEventListener("click", sendMessage);
+
+    // Add Enter key support for mobile and desktop
+    userInput.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" && !e.shiftKey) {
+            e.preventDefault();
+            sendMessage();
+        }
+    });
 
     apiKeyInput.addEventListener("input", () => {
         if (apiKeyInput.value.trim() === "") {
