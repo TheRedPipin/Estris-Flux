@@ -235,3 +235,26 @@ body {
         border-radius: 8px;
     }
 }
+
+.thinking {
+    opacity: 0.7;
+}
+
+.thinking::after {
+    content: '...';
+    animation: thinking 1.5s infinite;
+    display: inline-block;
+    width: 20px;
+}
+
+@keyframes thinking {
+    0%, 20% {
+        content: '.';
+    }
+    40% {
+        content: '..';
+    }
+    60%, 100% {
+        content: '...';
+    }
+}

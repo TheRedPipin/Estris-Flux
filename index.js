@@ -63,6 +63,15 @@ async function sendMessage() {
     userMessageDiv.id = "userMessage";
     userMessageDiv.innerText = userInput;
     document.getElementById("chatContainer").appendChild(userMessageDiv);
+    
+    // Add thinking indicator
+    const botMessageDiv = document.createElement("div");
+    botMessageDiv.id = "botMessage";
+    botMessageDiv.classList.add("thinking");
+    botMessageDiv.innerText = "Thinking";
+    document.getElementById("chatContainer").appendChild(botMessageDiv);
+    document.getElementById("chatContainer").scrollTop = document.getElementById("chatContainer").scrollHeight;
+    
     let response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
         method: 'POST',
         headers: {
@@ -84,9 +93,7 @@ async function sendMessage() {
         }),
     });
     const result = await response.json();
-    const botMessageDiv = document.createElement("div");
-    botMessageDiv.id = "botMessage";
-    botMessageDiv.innerText = result.choices[0].message;
-    document.getElementById("chatContainer").appendChild(botMessageDiv);
+    botMessageDiv.classList.remove("thinking");
+    botMessageDiv.innerText = result.choices[0].message.content;
     document.getElementById("chatContainer").scrollTop = document.getElementById("chatContainer").scrollHeight;
 }
