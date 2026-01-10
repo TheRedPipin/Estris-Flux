@@ -10,15 +10,26 @@
     <script src="index.js" defer></script>
 </head>
 <body>
-    <input type="text" id="APIKeyInput" class="keyInputFilled" placeholder="API KEY">
     <div id="mainTitle">ESTRIS FLUX</div>
     <div id="subtitle">*Powered by thoughts and prayers</div>
+    <input type="text" id="APIKeyInput" class="keyInputEmpty" placeholder="API KEY">
     <div id="chatContainer">
-        <div id="inputContainer">
-            <textarea id="userInput" placeholder="Type your message here..."></textarea>
+    </div>
+    <div id="inputContainer">
+        <button id="settingsButton"><span>⚙</span></button>
+        <textarea id="userInput" placeholder="Type your message here..."></textarea>
         <button id="sendButton">Send</button>
-        </div>
     </div>
     <div id="alertBox" class="hidden"></div>
+    <div id="settingsPanel">
+        <h2>Settings</h2>
+        <label for="modelSelect">Model:</label>
+        <select id="modelSelect">
+            <option value="Serious">Brian</option>
+            <option value="Lunatic">Larry</option>
+        </select>
+        <br>
+        <button id="closeSettingsButton">Close</button>
+    </div>
 </body>
 </html>

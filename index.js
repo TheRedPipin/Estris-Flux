@@ -3,6 +3,21 @@ window.onload = () => {
     const sendButton = document.getElementById("sendButton");
     const userInput = document.getElementById("userInput");
     const storedApiKey = sessionStorage.getItem("apiKey");
+    const settingsButton = document.getElementById("settingsButton");
+    const settingsPanel = document.getElementById("settingsPanel");
+    const closeSettingsButton = document.getElementById("closeSettingsButton");
+
+    settingsButton.addEventListener("click", () => {
+        if (settingsPanel.style.display == "block"){
+            settingsPanel.style.display = "none";
+            return
+        }
+        settingsPanel.style.display = "block";
+    });
+
+    closeSettingsButton.addEventListener("click", () => {
+        settingsPanel.style.display = "none";
+    });
     if (storedApiKey) {
         apiKeyInput.value = storedApiKey;
         apiKeyInput.classList.remove("keyInputEmpty");
@@ -10,7 +25,6 @@ window.onload = () => {
     }
     sendButton.addEventListener("click", sendMessage);
 
-    // Add Enter key support for mobile and desktop
     userInput.addEventListener("keydown", (e) => {
         if (e.key === "Enter" && !e.shiftKey) {
             e.preventDefault();
@@ -30,16 +44,24 @@ window.onload = () => {
     });
 }
 
-let systemPrompt = "";
-
-fetch("./autismSystem.md")
-    .then(response => response.text())
-    .then(content => {
-        systemPrompt = content;
-    })
-    .catch(error => console.error("Failed to load system prompt:", error));
-
 async function sendMessage() {
+    let systemPrompt = "";
+    if (document.getElementById("modelSelect").value === "Serious") {
+        await fetch("./Brian.md")
+            .then(response => response.text())
+            .then(content => {
+                systemPrompt = content;
+            })
+            .catch(error => console.error("Failed to load system prompt:", error));
+    } else if (document.getElementById("modelSelect").value === "Lunatic") {
+        await fetch("./Larry.md")
+            .then(response => response.text())
+            .then(content => {
+                systemPrompt = content;
+            })
+            .catch(error => console.error("Failed to load system prompt:", error));
+    }
+    
     const userInput = document.getElementById("userInput").value;
     const apiKeyInput = document.getElementById("APIKeyInput").value;
     if (apiKeyInput.trim() === "") {
@@ -64,7 +86,6 @@ async function sendMessage() {
     userMessageDiv.innerText = userInput;
     document.getElementById("chatContainer").appendChild(userMessageDiv);
     
-    // Add thinking indicator
     const botMessageDiv = document.createElement("div");
     botMessageDiv.id = "botMessage";
     botMessageDiv.classList.add("thinking");
